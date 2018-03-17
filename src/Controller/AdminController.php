@@ -48,4 +48,20 @@ class AdminController extends Controller
             ]
         );
     }
+
+    /**
+     * @Route("/requests", name="admin_list_requests")
+     */
+    public function listRequests(Request $request)
+    {
+        $accompanyingRequestsRepository = $this->getDoctrine()->getManager()->getRepository(AccompanyingRequest::class);
+        $requestsList = $accompanyingRequestsRepository->findAll();
+
+        return $this->render(
+            'admin/list_requests.html.twig',
+            [
+                'requestsList' => $requestsList,
+            ]
+        );
+    }
 }
