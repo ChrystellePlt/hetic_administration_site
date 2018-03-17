@@ -75,7 +75,7 @@ class AdminController extends Controller
         $accompanyingRequest = $accompanyingRequestsRepository->find($slug);
 
         if (!$accompanyingRequest) {
-            throw $this->createNotFoundException('No request found for id ' . $slug);
+            throw $this->createNotFoundException('No request found for id '.$slug);
         }
 
         $form = $this->createForm(AccompanyingRequestType::class, $accompanyingRequest);
@@ -106,7 +106,7 @@ class AdminController extends Controller
         $accompanyingRequest = $accompanyingRequestsRepository->find($slug);
 
         if (!$accompanyingRequest) {
-            throw $this->createNotFoundException('No request found for id ' . $slug);
+            throw $this->createNotFoundException('No request found for id '.$slug);
         }
 
         $em->remove($accompanyingRequest);
