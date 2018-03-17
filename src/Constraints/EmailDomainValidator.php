@@ -12,7 +12,7 @@ class EmailDomainValidator extends ConstraintValidator
         $explodedEmail = explode('@', $value);
         $domain = array_pop($explodedEmail);
 
-        if (!in_array($domain, $constraint->domains)) {
+        if (!in_array($domain, $constraint->domains, true)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('%email%', $value)
                 ->addViolation();
