@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Création de compte{% endblock %}
+
+{% block body %}
+            {{ form_start(registerForm) }}
+            {{ form_errors(registerForm) }}
+
+            {{ form_row(registerForm.username) }}
+            {{ form_row(registerForm.email) }}
+            {{ form_row(registerForm.plainPassword.first) }}
+            {{ form_row(registerForm.plainPassword.second) }}
+
+            <button type="submit" name="_submitRegistration">S'enregistrer</button>
+            {{ form_end(registerForm) }}
+{% endblock %}

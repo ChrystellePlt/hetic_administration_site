@@ -24,7 +24,7 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $user = new User();
         $form = $this->createForm(UserRegistration::class, $user);
@@ -36,7 +36,7 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-            return $this->redirectToRoute('admin_dash');
+            return $this->redirectToRoute('admin_dashboard');
         }
         return $this->render(
             'user/register.html.twig',
@@ -52,7 +52,7 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function loginAction(Request $request, AuthenticationUtils $authUtils): Response
+    public function loginAction(Request $request, AuthenticationUtils $authUtils)
     {
         $error = $authUtils->getLastAuthenticationError();
         $lastUsername = $authUtils->getLastUsername();
