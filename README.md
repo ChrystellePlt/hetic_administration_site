@@ -48,10 +48,10 @@ $ ./bin/console doctrine:migration:migrate
 Tests
 -----
 
-Tests are configured over travis but you can run it manually if you installed dependencies with --dev option this way:
+Tests are configured over travis but you can run it manually this way:
 
 ```bash
-$ ./bin/phpunit
+$ ./vendor/bin/simple-phpunit
 ```
 
 If you want to fully verify the application including code style, config files, twig templates syntax, composer validation & known vulnerabilites:
