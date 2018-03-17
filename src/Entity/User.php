@@ -75,7 +75,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(name="phone_number", type="string", length=15)
      * @Assert\Regex(
-     *      patter  = "/^\+33[1-9]([-. ]?[0-9]{2}){4}$/",
+     *      pattern  = "/^\+33[1-9]([-. ]?[0-9]{2}){4}$/",
      *      message = "Numéro de téléphone invalide"
      * )
      */

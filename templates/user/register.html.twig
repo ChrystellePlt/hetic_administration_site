@@ -8,8 +8,16 @@
 
             {{ form_row(registerForm.username) }}
             {{ form_row(registerForm.email) }}
+            {{ form_row(registerForm.personnalEmail) }}
             {{ form_row(registerForm.plainPassword.first) }}
             {{ form_row(registerForm.plainPassword.second) }}
+            {{ form_row(registerForm.firstName) }}
+            {{ form_row(registerForm.lastName) }}
+            {{ form_row(registerForm.promotion) }}
+            {{ form_row(registerForm.twitter) }}
+            {{ form_row(registerForm.facebook) }}
+            {{ form_row(registerForm.phoneNumber) }}
+
 
             <button type="submit" name="_submitRegistration">S'enregistrer</button>
             {{ form_end(registerForm) }}
