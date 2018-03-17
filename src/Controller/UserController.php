@@ -8,6 +8,7 @@ use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -76,7 +77,17 @@ class UserController extends Controller
     }
 
     /**
+     * Account confirmation route.
+     *
      * @Route("/user/confirm/{slug}", name="user_confirm_account")
+     *
+     * @param string      $slug        The confirmation token
+     * @param UserService $userService The autowired UserService
+     *
+     * @throws \Exception            In case token is already used
+     * @throws NotFoundHttpException In case token doesn't exists
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function confirmAccount($slug, UserService $userService)
     {
