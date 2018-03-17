@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Création de demande d'accompagnement{% endblock %}
+
+{% block body %}
+    {{ form_start(requestForm) }}
+    {{ form_errors(requestForm) }}
+
+    {{ form_row(requestForm.firstName) }}
+    {{ form_row(requestForm.lastName) }}
+    {{ form_row(requestForm.email) }}
+    {{ form_row(requestForm.wantedPromotion) }}
+    {{ form_row(requestForm.actualSchoolLevel) }}
+    {{ form_row(requestForm.twitter) }}
+    {{ form_row(requestForm.facebook) }}
+    {{ form_row(requestForm.phoneNumber) }}
+    {{ form_row(requestForm.wantedSpeciality) }}
+
+    <button type="submit" name="_submitRequest">Enregister</button>
+    {{ form_end(requestForm) }}
+{% endblock %}

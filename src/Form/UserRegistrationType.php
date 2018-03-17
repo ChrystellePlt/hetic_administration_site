@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\User;
+namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
@@ -14,7 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Class UserType.
  */
-class UserRegistration extends AbstractType
+class UserRegistrationType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
