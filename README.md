@@ -1,7 +1,7 @@
 HETIC Administration Project
 ========================
 
-**Build status:** [![Build Status](https://travis-ci.com/QRaimbault/hetic_administration_site.svg?token=FA1wAxykejW5sUvRGpAj&branch=master)](https://travis-ci.com/QRaimbault/hetic_administration_site)
+**Build status:** [![Build Status](https://travis-ci.org/QRaimbault/hetic_administration_site.svg?branch=master)](https://travis-ci.org/QRaimbault/hetic_administration_site)
 
 Webapp for HETIC school built over [Symfony 4.0][3]
 
