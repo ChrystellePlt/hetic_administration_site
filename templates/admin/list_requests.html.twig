@@ -24,7 +24,7 @@
                 <td>{{ request.actualSchoolLevel }}</td>
                 <td>{{ request.email }}</td>
                 <td><a href="{{ path('admin_modify_request', {'slug': request.id }) }}">Modifier</a></td>
-                <td><a href="{{ path('admin_delete_request', {'slug': request.id }) }}">Supprimer</a></td>
+                <td><a href="{{ path('admin_delete_request', {'slug': request.id }) }}" onclick="return confirm('Êtes vous sûr de vouloir supprimer la demande de {{ request.firstName ~ ' ' ~ request.lastName }} ?')">Supprimer</a></td>
             </tr>
         {% endfor %}
     </table>
