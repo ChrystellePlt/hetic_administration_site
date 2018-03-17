@@ -43,6 +43,50 @@ class User implements UserInterface, \Serializable
     private $plainPassword;
 
     /**
+     * @Assert\NotBlank()
+     * @ORM\Column(name="first_name", type="string", length=70)
+     * @Assert\Length(max=100)
+     */
+    private $firstName;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\Column(name="last_name", type="string", length=70)
+     * @Assert\Length(max=100)
+     */
+    private $lastName;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\Column(type="string", length=20)
+     */
+    private $promotion;
+
+    /**
+     * @ORM\Column(type="string", length=30)
+     */
+    private $twitter;
+
+    /**
+     * @ORM\Column(type="string", length=140)
+     */
+    private $facebook;
+
+    /**
+     * @ORM\Column(name="phone_number", type="string", length=15)
+     * @Assert\Regex(
+     *      patter  = "/^\+33[1-9]([-. ]?[0-9]{2}){4}$/",
+     *      message = "Numéro de téléphone invalide"
+     * )
+     */
+    private $phoneNumber;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $skills;
+
+    /**
      * @ORM\Column(type="string", length=64)
      */
     private $password;
@@ -54,6 +98,13 @@ class User implements UserInterface, \Serializable
      * @AppAssert\EmailDomain(domains = {"hetic.net"})
      */
     private $email;
+
+    /**
+     * @ORM\Column(name="personnal_email", type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     */
+    private $personnalEmail;
 
     /**
      * @ORM\Column(name="is_active", type="boolean")
@@ -103,6 +154,16 @@ class User implements UserInterface, \Serializable
         $this->email = $email;
     }
 
+    public function getPersonnalEmail()
+    {
+        return $this->personnalEmail;
+    }
+
+    public function setPersonnalEmail($personnalEmail)
+    {
+        $this->personnalEmail = $personnalEmail;
+    }
+
     public function getUsername()
     {
         return $this->username;
@@ -145,6 +206,134 @@ class User implements UserInterface, \Serializable
 
     public function eraseCredentials()
     {
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * @param mixed $firstName
+     */
+    public function setFirstName($firstName): void
+    {
+        $this->firstName = $firstName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param mixed $lastName
+     */
+    public function setLastName($lastName): void
+    {
+        $this->lastName = $lastName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPromotion()
+    {
+        return $this->promotion;
+    }
+
+    /**
+     * @param mixed $promotion
+     */
+    public function setPromotion($promotion): void
+    {
+        $this->promotion = $promotion;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTwitter()
+    {
+        return $this->twitter;
+    }
+
+    /**
+     * @param mixed $twitter
+     */
+    public function setTwitter($twitter): void
+    {
+        $this->twitter = $twitter;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFacebook()
+    {
+        return $this->facebook;
+    }
+
+    /**
+     * @param mixed $facebook
+     */
+    public function setFacebook($facebook): void
+    {
+        $this->facebook = $facebook;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhoneNumber()
+    {
+        return $this->phoneNumber;
+    }
+
+    /**
+     * @param mixed $phoneNumber
+     */
+    public function setPhoneNumber($phoneNumber): void
+    {
+        $this->phoneNumber = $phoneNumber;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSkills()
+    {
+        return $this->skills;
+    }
+
+    /**
+     * @param mixed $skills
+     */
+    public function setSkills($skills): void
+    {
+        $this->skills = $skills;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getisActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param mixed $isActive
+     */
+    public function setIsActive($isActive): void
+    {
+        $this->isActive = $isActive;
     }
 
     /** @see \Serializable::serialize() */
