@@ -13,6 +13,7 @@
             <th>Spécialité demandée</th>
             <th>Niveau d'étude</th>
             <th>Adresse e-mail</th>
+            <th>Outils</th>
         </tr>
         {% for request in requestsList %}
             <tr>
@@ -22,6 +23,7 @@
                 <td>{{ request.wantedSpeciality }}</td>
                 <td>{{ request.actualSchoolLevel }}</td>
                 <td>{{ request.email }}</td>
+                <td><a href="{{ path('admin_modify_request', {'slug': request.id }) }}">Modifier</a></td>
             </tr>
         {% endfor %}
     </table>

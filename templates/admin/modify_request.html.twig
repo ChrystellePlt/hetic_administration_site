@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Modification de demande d'accompagnement{% endblock %}
+
+{% block body %}
+    <h1>Modification de la demande pour {{ request.firstName ~ ' '  ~ request.lastName }}</h1>
+
+    {{ form_start(requestForm) }}
+    {{ form_errors(requestForm) }}
+
+    {{ form_row(requestForm.firstName, {'value' : request.firstName}) }}
+    {{ form_row(requestForm.lastName, {'value' : request.lastName}) }}
+    {{ form_row(requestForm.email, {'value' : request.email}) }}
+    {{ form_row(requestForm.wantedPromotion, {'value' : request.wantedPromotion}) }}
+    {{ form_row(requestForm.actualSchoolLevel, {'value' : request.actualSchoolLevel}) }}
+    {{ form_row(requestForm.twitter, {'value' : request.twitter}) }}
+    {{ form_row(requestForm.facebook, {'value' : request.facebook}) }}
+    {{ form_row(requestForm.phoneNumber, {'value' : request.phoneNumber}) }}
+    {{ form_row(requestForm.wantedSpeciality, {'value' : request.wantedSpeciality}) }}
+
+    <button type="submit" name="_submitRequest">Enregister</button>
+    {{ form_end(requestForm) }}
+{% endblock %}
