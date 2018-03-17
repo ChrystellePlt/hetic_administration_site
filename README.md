@@ -45,6 +45,8 @@ $ yarn run encore production
 $ ./bin/console doctrine:migration:migrate
 ```
 
+Some documentation about web server configuration for symfony [here][2].
+
 Tests
 -----
 
@@ -66,7 +68,16 @@ $ ./bin/console security:check --end-point=http://security.sensiolabs.org/check_
 $ composer validate --strict
 ```
 
-Some documentation about web server configuration for symfony [here][2].
+Front-End Developers
+-----
+
+All the SCSS code is expected to go in assets/scss and MUST be included in master.scss.
+All the JS code is expected to go in assets/js and MUST be declared using addEntry in webpack.config.js.
+
+HTML goes into assets/html if you don't do the TWIG conversion, otherwise directly use templates folder and .html.twig files.
+
+DO NOT touch anything else than .addEntry in webpack configuration.
+
 
 [1]: https://symfony.com/doc/current/reference/requirements.html
 [2]: https://symfony.com/doc/current/cookbook/configuration/web_server_configuration.html
