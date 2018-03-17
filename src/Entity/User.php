@@ -92,6 +92,11 @@ class User implements UserInterface, \Serializable
     private $password;
 
     /**
+     * @ORM\Column(name="confirmation_token", type="string", length=64)
+     */
+    private $confirmationToken;
+
+    /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
@@ -211,6 +216,22 @@ class User implements UserInterface, \Serializable
 
     public function eraseCredentials()
     {
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConfirmationToken()
+    {
+        return $this->confirmationToken;
+    }
+
+    /**
+     * @param mixed $confirmationToken
+     */
+    public function setConfirmationToken($confirmationToken): void
+    {
+        $this->confirmationToken = $confirmationToken;
     }
 
     /**
