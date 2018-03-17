@@ -56,7 +56,7 @@ class UserService
         $user->setConfirmationToken($confirmationToken);
 
         $message = (new \Swift_Message('HETIC - Confirmation de votre compte'))
-            ->setFrom('test@test.com')
+            ->setFrom('test@test.com', 'HETIC')
             ->setTo($user->getEmail())
             ->setBody(
                 $this->twig->render(
