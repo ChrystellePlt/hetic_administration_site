@@ -20,4 +20,24 @@ class UserRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, User::class);
     }
+
+    public function findAllAdminUsers()
+    {
+        return $this->createQueryBuilder('user')
+            ->where('user.something LIKE \'%{ADMIN}%\'')
+            ->orderBy('user.lastName', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findAllStudentUsers()
+    {
+        return $this->createQueryBuilder('user')
+            ->where('user.something LIKE \'%{STUDENT}%\'')
+            ->orderBy('user.lastName', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }
