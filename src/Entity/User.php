@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Constraints as AppAssert;
 
 /**
  * @ORM\Table(name="app_users")
@@ -50,6 +51,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
+     * @AppAssert\EmailDomain(domains = {"hetic.net"})
      */
     private $email;
 
