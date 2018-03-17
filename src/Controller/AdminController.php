@@ -44,7 +44,7 @@ class AdminController extends Controller
     /**
      * @Route("/requests/add", name="admin_add_request")
      */
-    public function addRequest(Request $request)
+    public function addRequest(Request $request, \Swift_Mailer $mailer)
     {
         $accompanyingRequest = new AccompanyingRequest();
         $form = $this->createForm(AccompanyingRequestType::class, $accompanyingRequest);
@@ -53,6 +53,22 @@ class AdminController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($accompanyingRequest);
             $em->flush();
+
+            $message = (new \Swift_Message('HETIC - Votre journée chez nous'))
+                ->setFrom('test@test.com')
+                ->setTo($form->get('email')->getData())
+                ->setBody(
+                    $this->renderView(
+                        'email/new_request.html.twig',
+                        [
+                            'name' => $form->get('firstName')->getData(),
+                            'requestDate' => $form->get('date')->getData(),
+                        ]
+                    ),
+                    'text/html'
+                );
+
+            $mailer->send($message);
 
             return $this->redirectToRoute('admin_dashboard');
         }
