@@ -16,7 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends Controller
 {
     /**
+     * Admin dashboard route.
+     *
      * @Route("/dashboard", name="admin_dashboard")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index()
     {
@@ -26,7 +30,13 @@ class AdminController extends Controller
     }
 
     /**
+     * Admin accompanying request listing route.
+     *
      * @Route("/requests", name="admin_list_requests")
+     *
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function listRequests(Request $request)
     {
@@ -42,7 +52,14 @@ class AdminController extends Controller
     }
 
     /**
+     * Admin accompanying request creation route.
+     *
      * @Route("/requests/add", name="admin_add_request")
+     *
+     * @param Request       $request
+     * @param \Swift_Mailer $mailer  Autowired SwiftMailer Service
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function addRequest(Request $request, \Swift_Mailer $mailer)
     {
@@ -82,9 +99,16 @@ class AdminController extends Controller
     }
 
     /**
+     * Admin accompanying request modification route.
+     *
      * @Route("/requests/modify/{slug}", name="admin_modify_request")
+     *
+     * @param string  $slug    The ID of the request to modify
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function modifyRequest($slug, Request $request)
+    public function modifyRequest(string $slug, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $accompanyingRequestsRepository = $em->getRepository(AccompanyingRequest::class);
@@ -113,9 +137,16 @@ class AdminController extends Controller
     }
 
     /**
+     * Admin accompanying request modification route.
+     *
      * @Route("/requests/delete/{slug}", name="admin_delete_request")
+     *
+     * @param string  $slug    The ID of the request to delete
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteRequest($slug, Request $request)
+    public function deleteRequest(string $slug, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $accompanyingRequestsRepository = $em->getRepository(AccompanyingRequest::class);

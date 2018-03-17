@@ -14,21 +14,18 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
- * Class UserController
- *
- * @package App\Controller
+ * Class UserController.
  */
 class UserController extends Controller
 {
-
     /**
-     * Registering route
+     * Registering route.
      *
      * @Route("/register", name="user_registration")
      *
-     * @param Request $request
+     * @param Request                      $request
      * @param UserPasswordEncoderInterface $passwordEncoder Autowired PasswordEncoder service
-     * @param UserService $userService Autowired UserService
+     * @param UserService                  $userService     Autowired UserService
      *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
@@ -66,11 +63,11 @@ class UserController extends Controller
     }
 
     /**
-     * Login route
+     * Login route.
      *
      * @Route("/login", name="user_login")
      *
-     * @param Request $request
+     * @param Request             $request
      * @param AuthenticationUtils $authUtils Autowired AuthenticationUtils service
      *
      * @return Response
