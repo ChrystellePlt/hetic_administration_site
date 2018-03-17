@@ -24,7 +24,7 @@ class UserRepository extends ServiceEntityRepository
     public function findAllAdminUsers()
     {
         return $this->createQueryBuilder('user')
-            ->where('user.something LIKE \'%{ADMIN}%\'')
+            ->where('user.roles LIKE \'%{ADMIN}%\'')
             ->orderBy('user.lastName', 'ASC')
             ->getQuery()
             ->getResult()
@@ -34,7 +34,7 @@ class UserRepository extends ServiceEntityRepository
     public function findAllStudentUsers()
     {
         return $this->createQueryBuilder('user')
-            ->where('user.something LIKE \'%{STUDENT}%\'')
+            ->where('user.roles LIKE \'%{STUDENT}%\'')
             ->orderBy('user.lastName', 'ASC')
             ->getQuery()
             ->getResult()
