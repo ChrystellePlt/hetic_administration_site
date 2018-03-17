@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserRegistrationType;
+use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +25,7 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserService $userService)
     {
         $user = new User();
         $form = $this->createForm(UserRegistrationType::class, $user);
@@ -33,6 +34,11 @@ class UserController extends Controller
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             $user->setRoles(['ROLE_SUPER_ADMIN']);
+
+            $confirmationToken = $userService->sendAccountConfirmationEmail($user);
+
+            $user->setConfirmationToken($confirmationToken);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
@@ -67,5 +73,26 @@ class UserController extends Controller
                 'error' => $error,
             ]
         );
+    }
+
+    /**
+     * @Route("/user/confirm/{slug}", name="user_confirm_account")
+     */
+    public function confirmAccount($slug, UserService $userService)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $userRepository = $em->getRepository(User::class);
+
+        $user = $userRepository->findOneBy([
+            'confirmationToken' => $slug,
+        ]);
+
+        if (!$user) {
+            throw $this->createNotFoundException('No user found for token '.$slug);
+        }
+
+        $userService->handleAccountConfirmation($user);
+
+        return $this->redirectToRoute('user_login');
     }
 }
