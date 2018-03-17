@@ -34,7 +34,7 @@ class UserController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
-            $user->setRoles(['ROLE_SUPER_ADMIN']);
+            $user->setRoles(['IS_AWAITING_VALIDATION']);
 
             $confirmationToken = $userService->sendAccountConfirmationEmail($user);
 
