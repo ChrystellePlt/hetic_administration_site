@@ -7,12 +7,14 @@ security:
                 property: username
 
     role_hierarchy:
+        ROLE_STUDENT:     IS_AWAITING_VALIDATION
         ROLE_ADMIN:       ROLE_STUDENT
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     access_control:
         - { path: /register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: ROLE_STUDENT }
         - { path: ^/admin, roles: ROLE_ADMIN }
 
     firewalls:
