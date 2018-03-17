@@ -9,6 +9,7 @@
         <tr>
             <th>Prénom</th>
             <th>Nom</th>
+            <th>Date</th>
             <th>Promotion demandée</th>
             <th>Spécialité demandée</th>
             <th>Niveau d'étude</th>
@@ -19,6 +20,7 @@
             <tr>
                 <td>{{ request.firstName }}</td>
                 <td>{{ request.lastName }}</td>
+                <td>{{ request.date|date('d-m-Y') }}</td>
                 <td>{{ request.wantedPromotion }}</td>
                 <td>{{ request.wantedSpeciality }}</td>
                 <td>{{ request.actualSchoolLevel }}</td>

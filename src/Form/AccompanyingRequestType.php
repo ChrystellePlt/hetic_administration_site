@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\AccompanyingRequest;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,6 +19,10 @@ class AccompanyingRequestType extends AbstractType
             ->add('firstName', TextType::class, ['label' => 'Prénom'])
             ->add('lastName', TextType::class, ['label' => 'Nom de famille'])
             ->add('email', EmailType::class, ['label' => 'Addresse e-mail'])
+            ->add('date', DateType::class, [
+                'widget' => 'choice',
+                'format' => 'ddMMyyyy',
+            ])
             ->add('wantedPromotion', ChoiceType::class, [
                 'choices' => [
                     'WEB1' => 'WEB1',
