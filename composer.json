@@ -1,5 +1,7 @@
 {
     "type": "project",
+    "name": "qraimbault/hetic_administration_site",
+    "description": "Web site for HETIC administration",
     "license": "proprietary",
     "require": {
         "php": "^7.1.3",
@@ -14,6 +16,7 @@
         "symfony/lts": "^4@dev",
         "symfony/maker-bundle": "^1.2",
         "symfony/orm-pack": "^1.0",
+        "symfony/phpunit-bridge": "^4.0",
         "symfony/security-bundle": "^4.0",
         "symfony/twig-bundle": "^4.0",
         "symfony/validator": "^4.0",
@@ -21,8 +24,9 @@
         "symfony/yaml": "^4.0"
     },
     "require-dev": {
-        "symfony/dotenv": "^4.0",
+        "friendsofphp/php-cs-fixer": "^2.10",
         "symfony/debug-pack": "^1.0",
+        "symfony/dotenv": "^4.0",
         "symfony/web-server-bundle": "^4.0"
     },
     "config": {
