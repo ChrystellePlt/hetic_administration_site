@@ -1,5 +1,6 @@
 /docs/
 yarn.lock
+yarn-error.log
 
 ###> symfony/framework-bundle ###
 .env
@@ -94,4 +95,5 @@ fabric.properties
 
 ###> symfony/webpack-encore-pack ###
 /node_modules/
+/public/build/
 ###< symfony/webpack-encore-pack ###
