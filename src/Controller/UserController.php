@@ -14,17 +14,27 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
- * Class UserController.
+ * Class UserController
+ *
+ * @package App\Controller
  */
 class UserController extends Controller
 {
+
     /**
-     * @param Request                      $request
-     * @param UserPasswordEncoderInterface $passwordEncoder
+     * Registering route
      *
      * @Route("/register", name="user_registration")
      *
-     * @return Response
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $passwordEncoder Autowired PasswordEncoder service
+     * @param UserService $userService Autowired UserService
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserService $userService)
     {
@@ -56,9 +66,12 @@ class UserController extends Controller
     }
 
     /**
-     * @param Request             $request
-     * @param AuthenticationUtils $authUtils
+     * Login route
+     *
      * @Route("/login", name="user_login")
+     *
+     * @param Request $request
+     * @param AuthenticationUtils $authUtils Autowired AuthenticationUtils service
      *
      * @return Response
      */
