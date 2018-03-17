@@ -23,8 +23,15 @@ class UserRegistration extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class, ['label' => 'Addresse e-mail'])
+            ->add('email', EmailType::class, ['label' => 'Addresse e-mail (@hetic.net)'])
+            ->add('personnalEmail', EmailType::class, ['label' => 'Addresse e-mail'])
             ->add('username', TextType::class, ['label' => 'Nom d\'utilisateur'])
+            ->add('firstName', TextType::class, ['label' => 'Prénom'])
+            ->add('lastName', TextType::class, ['label' => 'Nom de famille'])
+            ->add('promotion', TextType::class, ['label' => 'Promotion'])
+            ->add('twitter', TextType::class, ['label' => 'Twitter'])
+            ->add('facebook', TextType::class, ['label' => 'Facebook'])
+            ->add('phoneNumber', TextType::class, ['label' => 'Téléphone (+33)'])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'Mot de passe'],
