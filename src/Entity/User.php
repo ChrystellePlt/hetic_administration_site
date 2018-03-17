@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
+use App\Constraints as AppAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Constraints as AppAssert;
 
 /**
  * @ORM\Table(name="app_users")

@@ -36,8 +36,10 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+
             return $this->redirectToRoute('admin_dashboard');
         }
+
         return $this->render(
             'user/register.html.twig',
             [
@@ -45,6 +47,7 @@ class UserController extends Controller
             ]
         );
     }
+
     /**
      * @param Request             $request
      * @param AuthenticationUtils $authUtils
@@ -56,6 +59,7 @@ class UserController extends Controller
     {
         $error = $authUtils->getLastAuthenticationError();
         $lastUsername = $authUtils->getLastUsername();
+
         return $this->render(
             'user/login.html.twig',
             [
