@@ -19,12 +19,19 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class UserController extends Controller
 {
     /**
-     * @param Request                      $request
-     * @param UserPasswordEncoderInterface $passwordEncoder
+     * Registering route.
      *
      * @Route("/register", name="user_registration")
      *
-     * @return Response
+     * @param Request                      $request
+     * @param UserPasswordEncoderInterface $passwordEncoder Autowired PasswordEncoder service
+     * @param UserService                  $userService     Autowired UserService
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserService $userService)
     {
@@ -34,7 +41,7 @@ class UserController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
-            $user->setRoles(['ROLE_SUPER_ADMIN']);
+            $user->setRoles(['IS_AWAITING_VALIDATION']);
 
             $confirmationToken = $userService->sendAccountConfirmationEmail($user);
 
@@ -56,9 +63,12 @@ class UserController extends Controller
     }
 
     /**
-     * @param Request             $request
-     * @param AuthenticationUtils $authUtils
+     * Login route.
+     *
      * @Route("/login", name="user_login")
+     *
+     * @param Request             $request
+     * @param AuthenticationUtils $authUtils Autowired AuthenticationUtils service
      *
      * @return Response
      */
