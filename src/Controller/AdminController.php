@@ -73,6 +73,11 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $accompanyingRequestsRepository = $em->getRepository(AccompanyingRequest::class);
         $accompanyingRequest = $accompanyingRequestsRepository->find($slug);
+
+        if (!$accompanyingRequest) {
+            throw $this->createNotFoundException('No request found for id ' . $slug);
+        }
+
         $form = $this->createForm(AccompanyingRequestType::class, $accompanyingRequest);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -89,5 +94,24 @@ class AdminController extends Controller
                 'request' => $accompanyingRequest,
             ]
         );
+    }
+
+    /**
+     * @Route("/requests/delete/{slug}", name="admin_delete_request")
+     */
+    public function deleteRequest($slug, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $accompanyingRequestsRepository = $em->getRepository(AccompanyingRequest::class);
+        $accompanyingRequest = $accompanyingRequestsRepository->find($slug);
+
+        if (!$accompanyingRequest) {
+            throw $this->createNotFoundException('No request found for id ' . $slug);
+        }
+
+        $em->remove($accompanyingRequest);
+        $em->flush();
+
+        return $this->redirectToRoute('admin_list_requests');
     }
 }

@@ -3,7 +3,7 @@
 {% block title %}Liste des demandes - Administration{% endblock %}
 
 {% block body %}
-    Bienvenue sur la page de listing des demandes {{ app.user.username }} !<br><br>
+    Bienvenue sur la page de listing des demandes {{ app.user.firstName }} !<br><br>
 
     <table>
         <tr>
@@ -24,6 +24,7 @@
                 <td>{{ request.actualSchoolLevel }}</td>
                 <td>{{ request.email }}</td>
                 <td><a href="{{ path('admin_modify_request', {'slug': request.id }) }}">Modifier</a></td>
+                <td><a href="{{ path('admin_delete_request', {'slug': request.id }) }}">Supprimer</a></td>
             </tr>
         {% endfor %}
     </table>
