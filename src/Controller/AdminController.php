@@ -26,6 +26,22 @@ class AdminController extends Controller
     }
 
     /**
+     * @Route("/requests", name="admin_list_requests")
+     */
+    public function listRequests(Request $request)
+    {
+        $accompanyingRequestsRepository = $this->getDoctrine()->getManager()->getRepository(AccompanyingRequest::class);
+        $requestsList = $accompanyingRequestsRepository->findAll();
+
+        return $this->render(
+            'admin/list_requests.html.twig',
+            [
+                'requestsList' => $requestsList,
+            ]
+        );
+    }
+
+    /**
      * @Route("/requests/add", name="admin_add_request")
      */
     public function addRequest(Request $request)
@@ -50,17 +66,27 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/requests", name="admin_list_requests")
+     * @Route("/requests/modify/{slug}", name="admin_modify_request")
      */
-    public function listRequests(Request $request)
+    public function modifyRequest($slug, Request $request)
     {
-        $accompanyingRequestsRepository = $this->getDoctrine()->getManager()->getRepository(AccompanyingRequest::class);
-        $requestsList = $accompanyingRequestsRepository->findAll();
+        $em = $this->getDoctrine()->getManager();
+        $accompanyingRequestsRepository = $em->getRepository(AccompanyingRequest::class);
+        $accompanyingRequest = $accompanyingRequestsRepository->find($slug);
+        $form = $this->createForm(AccompanyingRequestType::class, $accompanyingRequest);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($accompanyingRequest);
+            $em->flush();
+
+            return $this->redirectToRoute('admin_list_requests');
+        }
 
         return $this->render(
-            'admin/list_requests.html.twig',
+            'admin/modify_request.html.twig',
             [
-                'requestsList' => $requestsList,
+                'requestForm' => $form->createView(),
+                'request' => $accompanyingRequest,
             ]
         );
     }
