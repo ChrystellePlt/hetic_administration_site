@@ -9,5 +9,4 @@ cd $DIR/..
 ./bin/console lint:yaml config
 ./bin/console lint:twig templates
 ./bin/console lint:xliff translations
-./bin/console security:check --end-point=http://security.sensiolabs.org/check_lock
 composer validate --strict
