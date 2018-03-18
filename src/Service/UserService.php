@@ -93,11 +93,9 @@ class UserService
     }
 
     /**
-     * Set role to ROLE_ADMIN for specified user
+     * Set role to ROLE_ADMIN for specified user.
      *
      * @param User $user User to set as administrator
-     *
-     * @return void
      */
     public function setUserAsAdministrator(User $user): void
     {
