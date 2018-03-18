@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\AccompanyingRequest;
+use App\Entity\User;
 use App\Form\AccompanyingRequestType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -160,5 +161,27 @@ class AdminController extends Controller
         $em->flush();
 
         return $this->redirectToRoute('admin_list_requests');
+    }
+
+    /**
+     * Admin students listing route.
+     *
+     * @Route("/students", name="admin_list_students")
+     *
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function listStudents(Request $request)
+    {
+        $usersRepository = $this->getDoctrine()->getManager()->getRepository(User::class);
+        $studentsList = $usersRepository->findAllStudentUsers();
+
+        return $this->render(
+            'admin/list_students.html.twig',
+            [
+                'studentsList' => $studentsList,
+            ]
+        );
     }
 }

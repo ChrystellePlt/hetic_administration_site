@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Liste des utilisateurs - Administration{% endblock %}
+
+{% block body %}
+    Bienvenue sur la page de listing des utilisateurs {{ app.user.firstName }} !<br><br>
+
+    <table>
+        <tr>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Promotion</th>
+            <th>Adresse e-mail</th>
+        </tr>
+        {% for student in studentsList %}
+            <tr>
+                <td>{{ student.firstName }}</td>
+                <td>{{ student.lastName }}</td>
+                <td>{{ student.promotion }}</td>
+                <td>{{ student.email }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
