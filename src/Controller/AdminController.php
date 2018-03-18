@@ -141,7 +141,7 @@ class AdminController extends Controller
      *
      * @Route("/requests/delete/{slug}", name="admin_delete_request")
      *
-     * @param string  $slug    The ID of the request to delete
+     * @param string $slug The ID of the request to delete
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
