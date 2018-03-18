@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Liste des administrateurs - Administration{% endblock %}
+
+{% block body %}
+    Bienvenue sur la page de listing des administrateurs {{ app.user.firstName }} !<br><br>
+
+    <table>
+        <tr>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Adresse e-mail</th>
+            <th>Outils</th>
+        </tr>
+        {% for admin in adminsList %}
+            <tr>
+                <td>{{ admin.firstName }}</td>
+                <td>{{ admin.lastName }}</td>
+                <td>{{ admin.email }}</td>
+                <td><a href="{{ path('admin_set_user_student', {'slug': admin.id }) }}" onclick="return confirm('Êtes vous sûr de vouloir changer le rôle de {{ admin.firstName ~ ' ' ~ admin.lastName }} en étudiant ?')">Rendre étudiant</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
