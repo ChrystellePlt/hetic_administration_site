@@ -382,4 +382,19 @@ class User implements UserInterface, \Serializable
             $this->password,
             $this->roles) = unserialize($serialized);
     }
+
+    public function isSuperAdmin(): bool
+    {
+        return in_array('ROLE_SUPER_ADMIN', $this->roles, true);
+    }
+
+    public function isAdmin(): bool
+    {
+        return in_array('ROLE_ADMIN', $this->roles, true);
+    }
+
+    public function isStudent(): bool
+    {
+        return in_array('ROLE_STUDENT', $this->roles, true);
+    }
 }

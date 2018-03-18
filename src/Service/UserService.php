@@ -91,4 +91,17 @@ class UserService
         $this->em->persist($user);
         $this->em->flush();
     }
+
+    /**
+     * Set role to ROLE_ADMIN for specified user.
+     *
+     * @param User $user User to set as administrator
+     */
+    public function setUserAsAdministrator(User $user): void
+    {
+        $user->setRoles(['ROLE_ADMIN']);
+
+        $this->em->persist($user);
+        $this->em->flush();
+    }
 }
