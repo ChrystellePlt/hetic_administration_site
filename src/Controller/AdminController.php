@@ -206,7 +206,7 @@ class AdminController extends Controller
     /**
      * Admin route to set user as student.
      *
-     * @Route("/admin/setStudent/{slug}", name="admin_set_user_student")
+     * @Route("/staff/setStudent/{slug}", name="admin_set_user_student")
      *
      * @param string      $slug        User ID
      * @param UserService $userService
@@ -230,7 +230,7 @@ class AdminController extends Controller
     /**
      * Admin listing route.
      *
-     * @Route("/admins", name="admin_list_admins")
+     * @Route("/staff", name="admin_list_admins")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
