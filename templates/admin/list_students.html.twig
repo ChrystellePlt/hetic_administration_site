@@ -11,6 +11,7 @@
             <th>Nom</th>
             <th>Promotion</th>
             <th>Adresse e-mail</th>
+            <th>Outils</th>
         </tr>
         {% for student in studentsList %}
             <tr>
@@ -18,6 +19,9 @@
                 <td>{{ student.lastName }}</td>
                 <td>{{ student.promotion }}</td>
                 <td>{{ student.email }}</td>
+                {% if app.user.isSuperAdmin %}
+                    <td><a href="{{ path('admin_set_user_admin', {'slug': student.id }) }}" onclick="return confirm('Êtes vous sûr de vouloir changer le rôle de {{ student.firstName ~ ' ' ~ student.lastName }} en administrateur ?')">Rendre administrateur</a></td>
+                {% endif %}
             </tr>
         {% endfor %}
     </table>

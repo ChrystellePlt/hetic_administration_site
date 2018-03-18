@@ -91,4 +91,12 @@ class UserService
         $this->em->persist($user);
         $this->em->flush();
     }
+
+    public function setUserAsAdministrator(User $user): void
+    {
+        $user->setRoles(['ROLE_ADMIN']);
+
+        $this->em->persist($user);
+        $this->em->flush();
+    }
 }

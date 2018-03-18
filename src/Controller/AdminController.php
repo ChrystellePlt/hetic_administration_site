@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\AccompanyingRequest;
 use App\Entity\User;
 use App\Form\AccompanyingRequestType;
+use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -175,7 +176,7 @@ class AdminController extends Controller
     public function listStudents(Request $request)
     {
         $usersRepository = $this->getDoctrine()->getManager()->getRepository(User::class);
-        $studentsList = $usersRepository->findAllStudentUsers();
+        $studentsList = $usersRepository->findAllAdminUsers();
 
         return $this->render(
             'admin/list_students.html.twig',
@@ -183,5 +184,29 @@ class AdminController extends Controller
                 'studentsList' => $studentsList,
             ]
         );
+    }
+
+    /**
+     * Admin route to set user as admin.
+     *
+     * @Route("/user/setAdmin/{slug}", name="admin_set_user_admin")
+     *
+     * @param string      $slug        User ID
+     * @param UserService $userService
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function setUserAdmin(String $slug, UserService $userService)
+    {
+        $usersRepository = $this->getDoctrine()->getManager()->getRepository(User::class);
+        $user = $usersRepository->find($slug);
+
+        if (!$user) {
+            throw $this->createNotFoundException('No user found for id '.$slug);
+        }
+
+        $userService->setUserAsAdministrator($user);
+
+        return $this->redirectToRoute('admin_list_students');
     }
 }
