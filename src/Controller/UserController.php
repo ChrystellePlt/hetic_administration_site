@@ -67,12 +67,11 @@ class UserController extends Controller
      *
      * @Route("/login", name="user_login")
      *
-     * @param Request             $request
      * @param AuthenticationUtils $authUtils Autowired AuthenticationUtils service
      *
      * @return Response
      */
-    public function loginAction(Request $request, AuthenticationUtils $authUtils)
+    public function loginAction(AuthenticationUtils $authUtils)
     {
         $error = $authUtils->getLastAuthenticationError();
         $lastUsername = $authUtils->getLastUsername();

@@ -36,11 +36,9 @@ class AdminController extends Controller
      *
      * @Route("/requests", name="admin_list_requests")
      *
-     * @param Request $request
-     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listRequests(Request $request)
+    public function listRequests()
     {
         $accompanyingRequestsRepository = $this->getDoctrine()->getManager()->getRepository(AccompanyingRequest::class);
         $requestsList = $accompanyingRequestsRepository->findAll();
@@ -143,12 +141,11 @@ class AdminController extends Controller
      *
      * @Route("/requests/delete/{slug}", name="admin_delete_request")
      *
-     * @param string  $slug    The ID of the request to delete
-     * @param Request $request
+     * @param string $slug The ID of the request to delete
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteRequest(string $slug, Request $request)
+    public function deleteRequest(string $slug)
     {
         $em = $this->getDoctrine()->getManager();
         $accompanyingRequestsRepository = $em->getRepository(AccompanyingRequest::class);
@@ -169,11 +166,9 @@ class AdminController extends Controller
      *
      * @Route("/students", name="admin_list_students")
      *
-     * @param Request $request
-     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listStudents(Request $request)
+    public function listStudents()
     {
         $usersRepository = $this->getDoctrine()->getManager()->getRepository(User::class);
         $studentsList = $usersRepository->findAllAdminUsers();
