@@ -2,3 +2,92 @@
 @import "partials/variables";
 @import "partials/functions";
 @import "partials/mixins";
+
+body {
+  background-color: $mainColor;
+}
+
+.--green {
+  color: $secondaryColor;
+}
+
+.--bold {
+  font-weight: bold;
+}
+
+.login {
+  &__logo {
+    width: 54px;
+    height: 56px;
+    background-image: url('/build/images/logo_hetic_notext.png');
+    margin: 80px auto 30px auto;
+  }
+
+  &__title {
+    margin-top: 25px;
+    color: $secondaryColor;
+    font-size: 40px;
+    text-align: center;
+    font-family: 'PT Sans', sans-serif;
+    font-weight: bold;
+  }
+
+  &__subtitle {
+    margin-top: 40px;
+    color: $lightGrey;
+    font-size: 25px;
+    text-align: center;
+    font-family: 'PT Sans', sans-serif;
+  }
+
+  &__form-box {
+    display: block;
+    background-color: #fff;
+    width: 400px;
+    margin-left: auto;
+    margin-top: 30px;
+    margin-right: auto;
+    padding-bottom: 40px;
+
+    .--label {
+      font-family: 'PT Sans', sans-serif;
+      color: $mainColor;
+      font-size: 26px;
+      display: block;
+      padding-top: 44px;
+      margin-left: 36px;
+      margin-bottom: 10px;
+    }
+
+    .--input {
+      margin-left: 36px;
+      background-color: $veryLightGrey;
+      width: 280px;
+      height: 35px;
+      padding: 0 20px;
+      border-radius: 6px;
+      border: 0;
+    }
+  }
+
+  &__send-box {
+    width: 400px;
+    margin: 30px auto;
+    font-size: 18px;
+    text-align: center;
+
+    .--submit {
+      line-height: 20px;
+      font-family: 'PT Sans', sans-serif;
+      font-size: 25px;
+      background-color: $secondaryColor;
+      width: 400px;
+      height: 50px;
+      margin-right: 18px;
+      color: #fff;
+      border-radius: 6px;
+      border: 0;
+      cursor: pointer;
+    }
+  }
+}

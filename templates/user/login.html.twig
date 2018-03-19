@@ -1,17 +1,28 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Connexion{% endblock %}
+{% block title %}Admissions - Connexion{% endblock %}
+{% block stylesheets %}
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ asset('build/css/master.css') }}">
+{% endblock %}
 
 {% block body %}
+    <div class="login__logo"></div>
+    <h1 class="login__title">HETIC</h1>
+    <h2 class="login__subtitle">Connexion au système de <span class="--bold">gestion des admissions</span></h2>
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
     <form method="POST">
-        <label for="_username">Nom d'utilisateur</label>
-        <input type="text" name="_username" placeholder="Nom d'utilisateur" value="{{ last_username }}"/>
-        <label for="_password">Mot de passe</label>
-        <input type="password" name="_password" placeholder="Mot de passe"/>
+        <div class="login__form-box">
+            <label class="--label --bold" for="_username">Nom d'utilisateur</label>
+            <input class="--input" type="text" name="_username" placeholder="Nom d'utilisateur" value="{{ last_username }}"/>
+            <label class="--label --bold" for="_password">Mot de passe</label>
+            <input class="--input" type="password" name="_password" placeholder="Mot de passe"/>
+        </div>
 
-        <button type="submit" name="_submitLogin">Connexion</button>
+        <div class="login__send-box">
+            <button class="--submit" type="submit" name="_submitLogin">Connexion</button>
+        </div>
     </form>
 {% endblock %}
