@@ -71,6 +71,9 @@ $ composer validate --strict
 Front-End Developers
 -----
 
+
+### Files architecture
+
 All the SCSS code is expected to go in assets/scss and MUST be included in master.scss.
 All the JS code is expected to go in assets/js and MUST be declared using addEntry in webpack.config.js.
 
@@ -78,6 +81,54 @@ HTML goes into assets/html if you don't do the TWIG conversion, otherwise direct
 
 DO NOT touch anything else than .addEntry in webpack configuration.
 
+Each SCSS component is a standalone file.
+
+### Coding standards
+
+SCSS files must follow the following standard :
+
+Component: PascalCase class
+Block: Add __block-name to parent component/block
+Element: Add __element-name to parent component/block
+Modifier: Create class inside modified element named .--modifier-name
+
+Example: 
+```scss
+.Login {
+  &__form-box {
+    display: block;
+    background-color: #fff;
+    width: 400px;
+    margin-left: auto;
+    margin-top: 30px;
+    margin-right: auto;
+    padding-bottom: 40px;
+
+    &__label {
+      font-family: 'PT Sans', sans-serif;
+      color: $mainColor;
+      font-size: 26px;
+      display: block;
+      padding-top: 44px;
+      margin-left: 36px;
+      margin-bottom: 10px;
+      font-weight: bold;
+      
+      .--blue {
+        color: blue;
+      }
+    }
+  }
+}
+```
+
+```html
+<div class="Login">
+    <div class="Login__form-box">
+        <label class="Login__form-box__label --blue"></label>
+    </div>
+</div>
+```
 
 [1]: https://symfony.com/doc/current/reference/requirements.html
 [2]: https://symfony.com/doc/current/cookbook/configuration/web_server_configuration.html
