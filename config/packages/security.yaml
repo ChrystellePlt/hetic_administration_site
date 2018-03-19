@@ -15,6 +15,8 @@ security:
         - { path: /register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/user/confirm, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/admins, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/admin/admin, roles: ROLE_SUPER_ADMIN }
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/, roles: ROLE_STUDENT }
 

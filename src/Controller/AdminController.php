@@ -24,10 +24,8 @@ class AdminController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function dashboard()
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
         return $this->render('admin/dashboard.html.twig');
     }
 
@@ -171,7 +169,7 @@ class AdminController extends Controller
     public function listStudents()
     {
         $usersRepository = $this->getDoctrine()->getManager()->getRepository(User::class);
-        $studentsList = $usersRepository->findAllAdminUsers();
+        $studentsList = $usersRepository->findAllStudentUsers();
 
         return $this->render(
             'admin/list_students.html.twig',
@@ -184,7 +182,7 @@ class AdminController extends Controller
     /**
      * Admin route to set user as admin.
      *
-     * @Route("/user/setAdmin/{slug}", name="admin_set_user_admin")
+     * @Route("/student/setAdmin/{slug}", name="admin_set_user_admin")
      *
      * @param string      $slug        User ID
      * @param UserService $userService
@@ -203,5 +201,49 @@ class AdminController extends Controller
         $userService->setUserAsAdministrator($user);
 
         return $this->redirectToRoute('admin_list_students');
+    }
+
+    /**
+     * Admin route to set user as student.
+     *
+     * @Route("/staff/setStudent/{slug}", name="admin_set_user_student")
+     *
+     * @param string      $slug        User ID
+     * @param UserService $userService
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function setUserStudent(String $slug, UserService $userService)
+    {
+        $usersRepository = $this->getDoctrine()->getManager()->getRepository(User::class);
+        $user = $usersRepository->find($slug);
+
+        if (!$user) {
+            throw $this->createNotFoundException('No user found for id '.$slug);
+        }
+
+        $userService->setUserAsStudent($user);
+
+        return $this->redirectToRoute('admin_list_admins');
+    }
+
+    /**
+     * Admin listing route.
+     *
+     * @Route("/staff", name="admin_list_admins")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function listAdmins()
+    {
+        $usersRepository = $this->getDoctrine()->getManager()->getRepository(User::class);
+        $adminsList = $usersRepository->findAllAdminUsers();
+
+        return $this->render(
+            'admin/list_admins.html.twig',
+            [
+                'adminsList' => $adminsList,
+            ]
+        );
     }
 }

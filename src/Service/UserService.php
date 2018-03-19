@@ -104,4 +104,17 @@ class UserService
         $this->em->persist($user);
         $this->em->flush();
     }
+
+    /**
+     * Set role to ROLE_STUDENT for specified user.
+     *
+     * @param User $user User to set as student
+     */
+    public function setUserAsStudent(User $user): void
+    {
+        $user->setRoles(['ROLE_STUDENT']);
+
+        $this->em->persist($user);
+        $this->em->flush();
+    }
 }
