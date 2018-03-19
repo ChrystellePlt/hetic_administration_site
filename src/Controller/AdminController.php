@@ -182,7 +182,7 @@ class AdminController extends Controller
     /**
      * Admin route to set user as admin.
      *
-     * @Route("/student/setAdmin/{slug}", name="admin_set_user_admin")
+     * @Route("/staff/setAdmin/{slug}", name="admin_set_user_admin")
      *
      * @param string      $slug        User ID
      * @param UserService $userService
