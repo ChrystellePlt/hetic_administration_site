@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserDoResetPasswordType;
 use App\Form\UserRegistrationType;
+use App\Form\UserResetPasswordType;
 use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -114,5 +116,104 @@ class UserController extends Controller
         $userService->handleAccountConfirmation($user);
 
         return $this->redirectToRoute('user_login');
+    }
+
+    /**
+     * Account profile route.
+     *
+     * @Route("/user/profile", name="user_profile")
+     *
+     * @return Response
+     */
+    public function profile()
+    {
+        $user = $this->getUser();
+
+        return $this->render('user/profile.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * Account password reset route.
+     *
+     * @Route("/resetpassword", name="user_reset_password")
+     *
+     * @param Request     $request
+     * @param UserService $userService The autowired UserService
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     *
+     * @return Response
+     */
+    public function resetPassword(Request $request, UserService $userService)
+    {
+        $form = $this->createForm(UserResetPasswordType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $userRepository = $em->getRepository(User::class);
+
+            $user = $userRepository->findOneBy(['email' => $form->get('email')->getData()]);
+
+            if (!$user) {
+                $this->createNotFoundException('User not found for this email');
+            }
+
+            $userService->sendPasswordResetEmail($user);
+
+            return $this->redirectToRoute('user_login');
+        }
+
+        return $this->render(
+            'user/reset_password.html.twig',
+            [
+                'resetForm' => $form->createView(),
+            ]
+        );
+    }
+
+    /**
+     * Account password do reset route.
+     *
+     * @Route("/resetpassword/{slug}", name="user_do_reset_password")
+     *
+     * @param string  $slug    The confirmation token
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function doResetPassword(String $slug, Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $userRepository = $em->getRepository(User::class);
+
+        $user = $userRepository->findOneBy([
+            'confirmationToken' => $slug,
+        ]);
+
+        if (!$user) {
+            throw $this->createNotFoundException('No user found for token '.$slug);
+        }
+
+        $form = $this->createForm(UserDoResetPasswordType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $password = $passwordEncoder->encodePassword($user, $form->get('plainPassword')->getData());
+            $user->setPassword($password);
+
+            $em->flush();
+
+            return $this->redirectToRoute('user_login');
+        }
+
+        return $this->render(
+            'user/do_reset_password.html.twig',
+            [
+                'resetForm' => $form->createView(),
+            ]
+        );
     }
 }
