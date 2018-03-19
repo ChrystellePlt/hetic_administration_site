@@ -7,22 +7,25 @@
 {% endblock %}
 
 {% block body %}
-    <div class="login__logo"></div>
-    <h1 class="login__title">HETIC</h1>
-    <h2 class="login__subtitle">Connexion au système de <span class="--bold">gestion des admissions</span></h2>
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-    <form method="POST">
-        <div class="login__form-box">
-            <label class="--label --bold" for="_username">Nom d'utilisateur</label>
-            <input class="--input" type="text" name="_username" placeholder="Nom d'utilisateur" value="{{ last_username }}"/>
-            <label class="--label --bold" for="_password">Mot de passe</label>
-            <input class="--input" type="password" name="_password" placeholder="Mot de passe"/>
-        </div>
+    <div class="Login">
+        <div class="Login__logo"></div>
+        <h1 class="Login__title">HETIC</h1>
+        <h2 class="Login__subtitle">Connexion au système de <span class="--bold">gestion des admissions</span></h2>
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        <form method="POST">
+            <div class="Login__form-box">
+                <label class="Login__form-box__label" for="_username">Nom d'utilisateur</label>
+                <input class="Login__form-box__input" type="text" name="_username" placeholder="Nom d'utilisateur"
+                       value="{{ last_username }}"/>
+                <label class="Login__form-box__label" for="_password">Mot de passe</label>
+                <input class="Login__form-box__input" type="password" name="_password" placeholder="Mot de passe"/>
+            </div>
 
-        <div class="login__send-box">
-            <button class="--submit" type="submit" name="_submitLogin">Connexion</button>
-        </div>
-    </form>
+            <div class="Login__send-box">
+                <button class="Login__send-box__submit" type="submit" name="_submitLogin">Connexion</button>
+            </div>
+        </form>
+    </div>
 {% endblock %}
