@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\PasswordResetToken;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -140,9 +141,8 @@ class UserService
      */
     public function sendPasswordResetEmail(User $user): void
     {
-        $resetToken = $this->generateToken($user);
-
-        $user->setConfirmationToken($resetToken);
+        $textToken = $this->generateToken($user);
+        $token = new PasswordResetToken($textToken, $user);
 
         $message = (new \Swift_Message('HETIC - Réinitialisation de votre mot de passe'))
             ->setFrom('test@test.com', 'HETIC')
@@ -152,7 +152,7 @@ class UserService
                     'email/password_reset.html.twig',
                     [
                         'name' => $user->getFirstName(),
-                        'token' => $resetToken,
+                        'token' => $textToken,
                     ]
                 ),
                 'text/html'
@@ -160,6 +160,7 @@ class UserService
 
         $this->mailer->send($message);
 
+        $this->em->persist($token);
         $this->em->flush();
     }
 }

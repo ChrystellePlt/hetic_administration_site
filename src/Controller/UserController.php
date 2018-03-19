@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\PasswordResetToken;
 use App\Entity\User;
 use App\Form\UserDoResetPasswordType;
 use App\Form\UserRegistrationType;
@@ -189,12 +190,17 @@ class UserController extends Controller
     public function doResetPassword(String $slug, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $em = $this->getDoctrine()->getManager();
-        $userRepository = $em->getRepository(User::class);
+        $tokensRepository = $em->getRepository(PasswordResetToken::class);
 
-        $user = $userRepository->findOneBy([
-            'confirmationToken' => $slug,
+        $token = $tokensRepository->findOneBy([
+            'token' => $slug,
         ]);
 
+        $user = $token->getUser();
+
+        if (!$token) {
+            throw $this->createNotFoundException('No password reset token found for token '.$slug);
+        }
         if (!$user) {
             throw $this->createNotFoundException('No user found for token '.$slug);
         }
@@ -204,7 +210,7 @@ class UserController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $form->get('plainPassword')->getData());
             $user->setPassword($password);
-
+            $em->remove($token);
             $em->flush();
 
             return $this->redirectToRoute('user_login');

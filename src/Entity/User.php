@@ -121,6 +121,11 @@ class User implements UserInterface, \Serializable
      */
     private $roles;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PasswordResetToken", mappedBy="user")
+     */
+    private $passwordResets;
+
     public function __construct()
     {
         $this->isActive = true;
