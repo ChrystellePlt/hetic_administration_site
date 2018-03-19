@@ -7,8 +7,8 @@ Encore
     .cleanupOutputBeforeBuild()
     .enableSourceMaps(!Encore.isProduction())
 
-    .addEntry('js/app', './assets/js/app.js')
-    .addStyleEntry('css/master', './assets/scss/master.scss')
+    .addEntry('js/app.min', './assets/js/app.js')
+    .addStyleEntry('css/master.min', './assets/scss/master.scss')
     .addPlugin(new CopyWebpackPlugin([{ from: 'assets/images', to: 'images' }]))
     .enableSassLoader()
 ;
