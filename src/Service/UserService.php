@@ -113,7 +113,7 @@ class UserService
      */
     public function setUserAsAdministrator(User $user): void
     {
-        $user->setRoles(['ROLE_ADMIN']);
+        $user->setActualRole('ROLE_ADMIN');
 
         $this->em->flush();
     }
@@ -125,7 +125,7 @@ class UserService
      */
     public function setUserAsStudent(User $user): void
     {
-        $user->setRoles(['ROLE_STUDENT']);
+        $user->setActualRole('ROLE_STUDENT');
 
         $this->em->flush();
     }
