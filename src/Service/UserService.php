@@ -38,7 +38,22 @@ class UserService
     }
 
     /**
-     * Generates and sets confirmation token for user then sends mail with confirmation link.
+     * Generate a random sha256 token.
+     *
+     * @param User $user The user for who we generate the token
+     *
+     * @return string
+     */
+    public function generateToken(User $user): String
+    {
+        $hashBase = $salt = uniqid(mt_rand(), true).$user->getUsername().$user->getEmail();
+        $token = hash('sha256', $hashBase);
+
+        return $token;
+    }
+
+    /**
+     * Sends mail with confirmation link.
      *
      * @param User $user The user for who we generate the token
      *
@@ -50,8 +65,7 @@ class UserService
      */
     public function sendAccountConfirmationEmail(User $user): string
     {
-        $hashBase = $salt = uniqid(mt_rand(), true).$user->getUsername().$user->getEmail();
-        $confirmationToken = hash('sha256', $hashBase);
+        $confirmationToken = $this->generateToken($user);
 
         $user->setConfirmationToken($confirmationToken);
 
@@ -86,9 +100,8 @@ class UserService
         if (!in_array('IS_AWAITING_VALIDATION', $user->getRoles(), true)) {
             throw new \Exception('Token already used');
         }
-        $user->setRoles(['ROLE_STUDENT']);
+        $this->setUserAsStudent($user);
 
-        $this->em->persist($user);
         $this->em->flush();
     }
 
@@ -101,7 +114,6 @@ class UserService
     {
         $user->setRoles(['ROLE_ADMIN']);
 
-        $this->em->persist($user);
         $this->em->flush();
     }
 
@@ -114,7 +126,40 @@ class UserService
     {
         $user->setRoles(['ROLE_STUDENT']);
 
-        $this->em->persist($user);
+        $this->em->flush();
+    }
+
+    /**
+     * Generates and sets confirmation token for user then sends mail with password reset link.
+     *
+     * @param User $user The user for who we generate the token
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function sendPasswordResetEmail(User $user): void
+    {
+        $resetToken = $this->generateToken($user);
+
+        $user->setConfirmationToken($resetToken);
+
+        $message = (new \Swift_Message('HETIC - Réinitialisation de votre mot de passe'))
+            ->setFrom('test@test.com', 'HETIC')
+            ->setTo($user->getEmail())
+            ->setBody(
+                $this->twig->render(
+                    'email/password_reset.html.twig',
+                    [
+                        'name' => $user->getFirstName(),
+                        'token' => $resetToken,
+                    ]
+                ),
+                'text/html'
+            );
+
+        $this->mailer->send($message);
+
         $this->em->flush();
     }
 }

@@ -119,7 +119,6 @@ class AdminController extends Controller
         $form = $this->createForm(AccompanyingRequestType::class, $accompanyingRequest);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($accompanyingRequest);
             $em->flush();
 
             return $this->redirectToRoute('admin_list_requests');
