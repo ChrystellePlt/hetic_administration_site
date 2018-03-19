@@ -74,7 +74,7 @@ Front-End Developers
 
 ### Files architecture
 
-All the SCSS code is expected to go in assets/scss and MUST be included in master.scss.
+All the SCSS code is expected to go in assets/scss and MUST be included in master.scss.  
 All the JS code is expected to go in assets/js and MUST be declared using addEntry in webpack.config.js.
 
 HTML goes into assets/html if you don't do the TWIG conversion, otherwise directly use templates folder and .html.twig files.
@@ -87,12 +87,13 @@ Each SCSS component is a standalone file.
 
 SCSS files must follow the following standard :
 
-Component: PascalCase class
-Block: Add __block-name to parent component/block
-Element: Add __element-name to parent component/block
-Modifier: Create class inside modified element named .--modifier-name
+**Component**: PascalCase class  
+**Block**: Add __block-name to parent component/block  
+**Element**: Add __element-name to parent component/block  
+**Modifier**: Create class inside modified element named .--modifier-name
 
-Example: 
+
+**Example**: 
 ```scss
 .Login {
   &__form-box {
