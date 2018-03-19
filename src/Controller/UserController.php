@@ -44,7 +44,7 @@ class UserController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
-            $user->setRoles(['IS_AWAITING_VALIDATION']);
+            $user->setActualRole('IS_AWAITING_VALIDATION');
 
             $confirmationToken = $userService->sendAccountConfirmationEmail($user);
 
@@ -162,6 +162,9 @@ class UserController extends Controller
             if (!$user) {
                 $this->createNotFoundException('User not found for this email');
             }
+            if ($user->getActualRole() === "IS_AWAITING_VALIDATION") {
+                $this->createAccessDeniedException('Can\'t reset password on unvalidated account');
+            }
 
             $userService->sendPasswordResetEmail($user);
 
@@ -204,13 +207,17 @@ class UserController extends Controller
         if (!$user) {
             throw $this->createNotFoundException('No user found for token '.$slug);
         }
+        if ($token->isUsed()) {
+            throw new \LogicException('Token already used');
+        }
 
         $form = $this->createForm(UserDoResetPasswordType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $form->get('plainPassword')->getData());
             $user->setPassword($password);
-            $em->remove($token);
+            $token->setIsUsed(true);
+
             $em->flush();
 
             return $this->redirectToRoute('user_login');

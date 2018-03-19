@@ -28,6 +28,11 @@ class PasswordResetToken
      */
     private $user;
 
+    /**
+     * @ORM\Column(name="is_used", type="boolean")
+     */
+    private $isUsed = false;
+
     public function __construct(String $token, User $user)
     {
         $this->user = $user;
@@ -72,5 +77,21 @@ class PasswordResetToken
     public function setUser($user): void
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function isUsed()
+    {
+        return $this->isUsed;
+    }
+
+    /**
+     * @param mixed $isUsed
+     */
+    public function setIsUsed($isUsed): void
+    {
+        $this->isUsed = $isUsed;
     }
 }
