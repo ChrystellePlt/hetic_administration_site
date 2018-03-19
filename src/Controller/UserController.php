@@ -115,4 +115,20 @@ class UserController extends Controller
 
         return $this->redirectToRoute('user_login');
     }
+
+    /**
+     * Account profile route.
+     *
+     * @Route("/user/profile", name="user_profile")
+     *
+     * @return Response
+     */
+    public function profile()
+    {
+        $user = $this->getUser();
+
+        return $this->render('user/profile.html.twig',[
+            'user' => $user,
+        ]);
+    }
 }
