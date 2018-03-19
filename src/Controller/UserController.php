@@ -93,7 +93,7 @@ class UserController extends Controller
      * @Route("/user/confirm/{slug}", name="user_confirm_account")
      *
      * @param string      $slug        The confirmation token
-     * @param UserService $userService The autowired UserService
+     * @param UserService $userService Autowired UserService
      *
      * @throws \Exception            In case token is already used
      * @throws NotFoundHttpException In case token doesn't exists
@@ -140,7 +140,7 @@ class UserController extends Controller
      * @Route("/resetpassword", name="user_reset_password")
      *
      * @param Request     $request
-     * @param UserService $userService The autowired UserService
+     * @param UserService $userService Autowired UserService
      *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
@@ -180,8 +180,9 @@ class UserController extends Controller
      *
      * @Route("/resetpassword/{slug}", name="user_do_reset_password")
      *
-     * @param string  $slug    The confirmation token
-     * @param Request $request
+     * @param string                       $slug            The confirmation token
+     * @param Request                      $request
+     * @param UserPasswordEncoderInterface $passwordEncoder Autowired password encoder
      *
      * @return Response
      */
