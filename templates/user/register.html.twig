@@ -7,39 +7,41 @@
 {% endblock %}
 
 {% block body %}
-    <div class="login__logo"></div>
-    <h1 class="login__title">HETIC</h1>
-    <h2 class="login__subtitle">Enregistrement sur le système de <span class="--bold">gestion des admissions</span></h2>
+    <div class="Login">
+    <div class="Login__logo"></div>
+    <h1 class="Login__title">HETIC</h1>
+    <h2 class="Login__subtitle">Enregistrement sur le système de <span class="--bold">gestion des admissions</span></h2>
     {{ form_start(registerForm) }}
     {{ form_errors(registerForm) }}
 
-        <div class="login__form-box">
-            {{ form_label(registerForm.username, null, {'label_attr': {'class': '--label --bold'}}) }}
-            {{ form_widget(registerForm.username, {'attr': {'class': '--input'}}) }}
-            {{ form_label(registerForm.email, null, {'label_attr': {'class': '--label --bold'}}) }}
-            {{ form_widget(registerForm.email, {'attr': {'class': '--input'}}) }}
-            {{ form_label(registerForm.personnalEmail, null, {'label_attr': {'class': '--label --bold'}}) }}
-            {{ form_widget(registerForm.personnalEmail, {'attr': {'class': '--input'}}) }}
-            {{ form_label(registerForm.plainPassword.first, null, {'label_attr': {'class': '--label --bold'}}) }}
-            {{ form_widget(registerForm.plainPassword.first, {'attr': {'class': '--input'}}) }}
-            {{ form_label(registerForm.plainPassword.second, null, {'label_attr': {'class': '--label --bold'}}) }}
-            {{ form_widget(registerForm.plainPassword.second, {'attr': {'class': '--input'}}) }}
-            {{ form_label(registerForm.firstName, null, {'label_attr': {'class': '--label --bold'}}) }}
-            {{ form_widget(registerForm.firstName, {'attr': {'class': '--input'}}) }}
-            {{ form_label(registerForm.lastName, null, {'label_attr': {'class': '--label --bold'}}) }}
-            {{ form_widget(registerForm.lastName, {'attr': {'class': '--input'}}) }}
-            {{ form_label(registerForm.promotion, null, {'label_attr': {'class': '--label --bold'}}) }}
-            {{ form_widget(registerForm.promotion, {'attr': {'class': '--input'}}) }}
-            {{ form_label(registerForm.twitter, null, {'label_attr': {'class': '--label --bold'}}) }}
-            {{ form_widget(registerForm.twitter, {'attr': {'class': '--input'}}) }}
-            {{ form_label(registerForm.facebook, null, {'label_attr': {'class': '--label --bold'}}) }}
-            {{ form_widget(registerForm.facebook, {'attr': {'class': '--input'}}) }}
-            {{ form_label(registerForm.phoneNumber, null, {'label_attr': {'class': '--label --bold'}}) }}
-            {{ form_widget(registerForm.phoneNumber, {'attr': {'class': '--input'}}) }}
+        <div class="Login__form-box">
+            {{ form_label(registerForm.username, null, {'label_attr': {'class': 'Login__form-box__label'}}) }}
+            {{ form_widget(registerForm.username, {'attr': {'class': 'Login__form-box__input'}}) }}
+            {{ form_label(registerForm.email, null, {'label_attr': {'class': 'Login__form-box__label'}}) }}
+            {{ form_widget(registerForm.email, {'attr': {'class': 'Login__form-box__input'}}) }}
+            {{ form_label(registerForm.personnalEmail, null, {'label_attr': {'class': 'Login__form-box__label'}}) }}
+            {{ form_widget(registerForm.personnalEmail, {'attr': {'class': 'Login__form-box__input'}}) }}
+            {{ form_label(registerForm.plainPassword.first, null, {'label_attr': {'class': 'Login__form-box__label'}}) }}
+            {{ form_widget(registerForm.plainPassword.first, {'attr': {'class': 'Login__form-box__input'}}) }}
+            {{ form_label(registerForm.plainPassword.second, null, {'label_attr': {'class': 'Login__form-box__label'}}) }}
+            {{ form_widget(registerForm.plainPassword.second, {'attr': {'class': 'Login__form-box__input'}}) }}
+            {{ form_label(registerForm.firstName, null, {'label_attr': {'class': 'Login__form-box__label'}}) }}
+            {{ form_widget(registerForm.firstName, {'attr': {'class': 'Login__form-box__input'}}) }}
+            {{ form_label(registerForm.lastName, null, {'label_attr': {'class': 'Login__form-box__label'}}) }}
+            {{ form_widget(registerForm.lastName, {'attr': {'class': 'Login__form-box__input'}}) }}
+            {{ form_label(registerForm.promotion, null, {'label_attr': {'class': 'Login__form-box__label'}}) }}
+            {{ form_widget(registerForm.promotion, {'attr': {'class': 'Login__form-box__input'}}) }}
+            {{ form_label(registerForm.twitter, null, {'label_attr': {'class': 'Login__form-box__label'}}) }}
+            {{ form_widget(registerForm.twitter, {'attr': {'class': 'Login__form-box__input'}}) }}
+            {{ form_label(registerForm.facebook, null, {'label_attr': {'class': 'Login__form-box__label'}}) }}
+            {{ form_widget(registerForm.facebook, {'attr': {'class': 'Login__form-box__input'}}) }}
+            {{ form_label(registerForm.phoneNumber, null, {'label_attr': {'class': 'Login__form-box__label'}}) }}
+            {{ form_widget(registerForm.phoneNumber, {'attr': {'class': 'Login__form-box__input'}}) }}
         </div>
 
-        <div class="login__send-box">
-            <button class="--submit" type="submit" name="_submitRegistration">S'enregistrer</button>
+        <div class="Login__send-box">
+            <button class="Login__send-box__submit" type="submit" name="_submitRegistration">S'enregistrer</button>
         </div>
     {{ form_end(registerForm) }}
+    </div>
 {% endblock %}
