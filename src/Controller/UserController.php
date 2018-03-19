@@ -162,7 +162,7 @@ class UserController extends Controller
             if (!$user) {
                 $this->createNotFoundException('User not found for this email');
             }
-            if ($user->getActualRole() === "IS_AWAITING_VALIDATION") {
+            if ('IS_AWAITING_VALIDATION' === $user->getActualRole()) {
                 $this->createAccessDeniedException('Can\'t reset password on unvalidated account');
             }
 
