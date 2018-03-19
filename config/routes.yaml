@@ -2,7 +2,7 @@ logout:
     path: /logout
 
 admin_base:
-    path: /admin
+    path: /admin/
     controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction
     defaults:
         path: /admin/dashboard
